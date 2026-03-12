@@ -8,9 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloWorldController {
     @GetMapping("/hello")
-    public String hello(){
-        return "Hello World";
-
+    public String hello(@RequestParam String name) {
+        return "반갑습니다 " + name + "님";
     }
 
     //http://localhost/student?firstName=Sungchul&lastName=Park
@@ -23,6 +22,6 @@ public class HelloWorldController {
     @GetMapping("/student/{firstName}/{lastName}")
     public Student getStudent2(@PathVariable("firstName") String firstName, @PathVariable("lastName")String lastName){
         return new Student(firstName, lastName);
-
     }
+
 }
