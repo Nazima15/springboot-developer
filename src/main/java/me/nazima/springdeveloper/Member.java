@@ -7,8 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED) //아무 인자 없는 생성자
+@AllArgsConstructor //id, name 있는 생성자
 @Getter
 @Entity
 public class Member {
@@ -19,4 +19,8 @@ public class Member {
     private Long id;
     @Column(name = "name", nullable = false)
     private String name;
+
+    public Member(String name){
+        this.name=name;
+    }
 }
