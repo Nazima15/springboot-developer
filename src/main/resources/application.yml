@@ -1,4 +1,7 @@
   spring:
+    h2:
+      console:
+        enabled: true
     jpa:
       #전송 쿼리를 확인한다
       show-sql: true
