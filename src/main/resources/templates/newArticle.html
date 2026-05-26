@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>글 작성/수정</title>
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+
+<body>
+
+<div class="container mt-5">
+
+    <h1 class="mb-4">글 작성</h1>
+
+    <form>
+
+        <!-- 수정할 때 id 저장 -->
+        <input type="hidden"
+               id="article-id"
+               th:value="${article.id}">
+
+        <!-- 제목 -->
+        <div class="form-group">
+            <label>제목</label>
+
+            <input type="text"
+                   class="form-control"
+                   id="title"
+                   th:value="${article.title}">
+        </div>
+
+        <!-- 내용 -->
+        <div class="form-group">
+            <label>내용</label>
+
+            <textarea class="form-control"
+                      rows="10"
+                      id="content"
+                      th:text="${article.content}">
+            </textarea>
+        </div>
+
+        <button type="button"
+                id="create-btn"
+                class="btn btn-primary btn-sm">
+            등록
+        </button>
+
+        <button type="button"
+                id="modify-btn"
+                class="btn btn-secondary btn-sm">
+            수정
+        </button>
+
+    </form>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<script>
+
+    // 등록
+    const createButton = document.getElementById('create-btn');
+
+    if (createButton) {
+        createButton.addEventListener('click', function () {
+
+            fetch('/api/articles', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    title: document.getElementById('title').value,
+                    content: document.getElementById('content').value
+                })
+            })
+                .then(() => {
+                    alert('등록 완료!');
+                    location.replace('/articles');
+                });
+        });
+    }
+
+    // 수정
+    const modifyButton = document.getElementById('modify-btn');
+
+    if (modifyButton) {
+        modifyButton.addEventListener('click', function () {
+
+            let params = new URLSearchParams(location.search);
+            let id = params.get('id');
+
+            fetch(`/api/articles/${id}`, {
+                method: 'PUT',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    title: document.getElementById('title').value,
+                    content: document.getElementById('content').value
+                })
+            })
+                .then(() => {
+                    alert('수정 완료!');
+                    location.replace(`/articles/${id}`);
+                });
+        });
+    }
+
+</script>
+
+</body>
+</html>
