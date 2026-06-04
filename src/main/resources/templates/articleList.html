@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>블로그 글 목록</title>
+
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 </head>
@@ -14,12 +15,16 @@
 </div>
 
 <div class="container">
-    <button type="button" calss="btn btn-secondary btn-sm mb-3"
-            onclick="location.href='/new-article'"
 
-            id="create-btn" >
+    <!-- 글 등록 버튼 -->
+    <button type="button"
+            class="btn btn-secondary btn-sm mb-3"
+            onclick="location.href='/new-article'"
+            id="create-btn">
         글 등록
     </button>
+
+    <!-- 게시글 목록 -->
     <div class="row-6" th:each="item : ${articles}">
         <div class="card">
             <div class="card-header" th:text="${item.id}">
@@ -35,11 +40,22 @@
                     내용
                 </p>
 
-                <a th:href="@{/articles/{id}(id=${item.id})}" class="btn btn-primary">보러가기</a>
+                <a th:href="@{/articles/{id}(id=${item.id})}"
+                   class="btn btn-primary">
+                    보러가기
+                </a>
             </div>
         </div>
         <br>
     </div>
+
+    <!-- 로그아웃 -->
+    <form th:action="@{/logout}" method="post">
+        <button type="submit" class="btn btn-secondary">
+            로그아웃
+        </button>
+    </form>
+
 </div>
 
 </body>
