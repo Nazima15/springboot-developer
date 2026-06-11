@@ -44,12 +44,25 @@ public class TokenProviderTest {
         );
 
         // then
-        Long userId= Jwts.parser().setSigningKey(jwtProperties.getSecretKey())
+        Long userId = Jwts.parser().setSigningKey(jwtProperties.getSecretKey())
                 .parseClaimsJws(token)
                 .getBody()
                 .get("id", Long.class);
 
         assertThat(userId).isEqualTo(testUser.getId());
+    }
 
+    @DisplayName("validToken(): 유효한 토큰인 경우에 유효성 검증에 성공")
+    @Test
+    void validToken_validToken() {
+        // given
+        String token = JwtFactory.withDefaultValues()
+                .createToken(jwtProperties);
+
+        // when
+        boolean result = tokenProvider.validateToken(token);
+
+        // then
+        assertThat(result).isTrue();
     }
 }
