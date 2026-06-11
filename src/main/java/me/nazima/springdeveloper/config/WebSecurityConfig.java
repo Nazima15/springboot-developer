@@ -46,7 +46,8 @@ public class WebSecurityConfig {
                         .requestMatchers(
                                 PathPatternRequestMatcher.withDefaults().matcher("/login"),
                                 PathPatternRequestMatcher.withDefaults().matcher("/signup"),
-                                PathPatternRequestMatcher.withDefaults().matcher("/user")
+                                PathPatternRequestMatcher.withDefaults().matcher("/user"),
+                                PathPatternRequestMatcher.withDefaults().matcher("/api/articles/**")
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
