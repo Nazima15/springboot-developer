@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<nav th:fragment="navbar" class="navbar navbar-light bg-light mb-4">
+    <a class="navbar-brand" th:href="@{/articles}">My Blog</a>
+    <span th:if="${nickname != null}" th:text="'반갑습니다, ' + ${nickname} + '님'"></span>
+</nav>
+</body>
+</html>
